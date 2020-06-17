@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "name": "Evangeline Ingram",
+        "gender": "female",
+        "company": "ECRATIC",
+        "email": "evangelineingram@ecratic.com",
+        "phone": "+1 (925) 570-2858",
+        "registered": "2014-12-24T12:22:56 -01:00"
+    },
+    {
+        "id": 2,
+        "name": "Sargent Jenkins",
+        "gender": "male",
+        "company": "SNORUS",
+        "email": "sargentjenkins@snorus.com",
+        "phone": "+1 (937) 522-2785",
+        "registered": "2020-04-24T10:39:14 -02:00"
+    },
+    {
+        "id": 3,
+        "name": "English Higgins",
+        "gender": "male",
+        "company": "TROLLERY",
+        "email": "englishhiggins@trollery.com",
+        "phone": "+1 (868) 582-2246",
+        "registered": "2014-06-24T06:34:48 -02:00"
+    },
+    {
+        "id": 4,
+        "name": "Alyssa Merrill",
+        "gender": "female",
+        "company": "MEDALERT",
+        "email": "alyssamerrill@medalert.com",
+        "phone": "+1 (821) 521-2368",
+        "registered": "2020-05-13T06:52:57 -02:00"
+    },
+    {
+        "id": 5,
+        "name": "Effie Randolph",
+        "gender": "female",
+        "company": "ZENTURY",
+        "email": "effierandolph@zentury.com",
+        "phone": "+1 (812) 538-3896",
+        "registered": "2016-09-14T09:40:35 -02:00"
+    },
+    {
+        "id": 6,
+        "name": "Pittman Hancock",
+        "gender": "male",
+        "company": "VERAQ",
+        "email": "pittmanhancock@veraq.com",
+        "phone": "+1 (888) 475-3671",
+        "registered": "2018-07-16T08:10:18 -02:00"
+    }
+]
