@@ -3,7 +3,6 @@ Class and method for read / generate spreadsheet files.
 
 The supported format:
 * **CSV**: parameters by default, delimiter: `;`, enclore: `"`
-* **XLS** / **XLSX**: Excel document (**deprecated**)
 
 ## Prerequisite
 
