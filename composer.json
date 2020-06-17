@@ -2,11 +2,12 @@
   "name": "jgauthi/component_spreadsheet",
   "description": "Class for generated spreadsheet files (csv, xml excel)",
   "type": "library",
-  "keywords": [ "csv", "functions php", "php", "beer", "free" ],
+  "keywords": [ "csv", "functions php", "php", "excel", "free" ],
   "homepage": "https://github.com/jgauthi/component_spreadsheet",
   "require": {
       "php": ">=7.4.0",
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "phpoffice/phpexcel": "^1.8"
   },
   "config": {
     "platform": { "php" : "7.4" }
