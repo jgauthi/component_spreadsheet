@@ -2,7 +2,10 @@
 Class and method for read / generate spreadsheet files.
 
 The supported format:
-* **CSV**: parameters by default, delimiter: `;`, enclore: `"`
+* **CSV**: parameters by default, delimiter: `;`, enclore: `"`.
+    * On parsing method, convert empty value and `'NULL'` (phpmyadmin export NULL string in csv export) to `null`
+* **XLSX.XML**: Xml file for Excel (excel document)
+
 
 ## Prerequisite
 
@@ -19,7 +22,7 @@ Edit your [composer.json](https://getcomposer.org) (launch `composer update` aft
     { "type": "git", "url": "git@github.com:jgauthi/component_spreadsheet.git" }
   ],
   "require": {
-    "jgauthi/component_spreadsheet.git": "dev-master"
+    "jgauthi/component_spreadsheet": "1.*"
   }
 }
 ```
