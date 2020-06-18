@@ -4,10 +4,10 @@ use Jgauthi\Component\Spreadsheet\CsvUtils;
 require_once __DIR__.'/parse_csv.php';
 
 //-- Database configuration (to complete) --------------------
-$dbhost = 'localhost';
-$dbuser = 'root';
-$dbpass = 'root';
-$dbname = 'dbname';
+$dbhost ??= 'localhost';
+$dbuser ??= 'root';
+$dbpass ??= 'root';
+$dbname ??= 'dbname';
 //------------------------------------------------------------
 
 // Init PDO
@@ -23,7 +23,7 @@ $pdo = new PDO("mysql:dbname={$dbname};host={$dbhost}", $dbuser, $dbpass, [
 
 
 // Convert CSV content to mysql tables ($csvContent is set by CsvUtils::parsecsv on previous example)
-$table = 'clients';
+$table = 'clients_import_csv';
 $createTable = true; // Create table (optional) + insert data (on existing table if false)
 $processCreateTable = CsvUtils::content_to_database(
     $pdo,
@@ -38,5 +38,5 @@ if (!$processCreateTable) {
 }
 echo "<p>Table {$table}: Created with success.</p>";
 
-$clientContent = $pdo->query('SELECT * FROM clients')->fetchAll();
+$clientContent = $pdo->query('SELECT * FROM '.$table)->fetchAll();
 var_dump($clientContent);

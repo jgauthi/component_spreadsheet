@@ -3,7 +3,7 @@
   * @name: CsvUtils
   * @note: Utility functions to create / read / generate CSV
   * @author: Jgauthi <https://github.com/jgauthi>, created the [23oct2018]
-  * @version: 1.5
+  * @version: 1.0
   * @Requirements:
         - PHP version >= 7.4+ (http://php.net)
 
@@ -182,30 +182,32 @@ class CsvUtils
             throw new InvalidArgumentException("The arguments title or content are incorrect, require array no empty.");
         }
 
-        // Créer la table
         if($create_table) {
-            $sql = '';
+            // Add a auto increment ID field
+            // Your CSV file can have a "id" column or not, this field will be created on this table in all cases
+            $sqlFields = ['`id` INT UNSIGNED NOT NULL AUTO_INCREMENT'];
+
             for($i = 0; $i < count($title); $i++) {
                 $title[$i] = self::slugify($title[$i]);
-                $sql .= "`{$title[$i]}` TEXT NULL DEFAULT NULL,\n";
+                if ($title[$i] == 'id') {
+                    continue; // Field already created
+                }
+
+                $sqlFields[] = "`{$title[$i]}` TEXT NULL DEFAULT NULL";
             }
 
-            $sql = "CREATE TABLE `{$table}`
-            (
-                `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-                {$sql}
-                PRIMARY KEY (`id`)
-            ) ENGINE=InnoDB CHARSET=utf8;";
+            $sqlFields[] = 'PRIMARY KEY (`id`)';
 
+            $sqlFiels = implode(', ', $sqlFields);
+            $sql = "CREATE TABLE `{$table}` ( {$sqlFiels} ) ENGINE=InnoDB CHARSET=utf8;";
             $pdo->prepare($sql)->execute();
         }
 
-
         // Prepare INSERT
-        $fields = '`'.implode('`, `', $title).'`';
+        $sqlFields = '`'.implode('`, `', $title).'`';
         $placeholder = substr(str_repeat('?,', count($title)),0,-1);
 
-        $sql = "INSERT INTO `{$table}` ({$fields}) VALUES ({$placeholder})";
+        $sql = "INSERT INTO `{$table}` ({$sqlFields}) VALUES ({$placeholder})";
 
         try {
             $pdo->beginTransaction();
