@@ -3,7 +3,7 @@
  * @name: Export XML Excel
  * @note: Framework pour générer des fichiers excels en XML
  * @author: Jgauthi <https://github.com/jgauthi>, created the [21dec2015]
- * @version: 1.3.2
+ * @version: 1.0
  * @Requirements:
     - PHP version >= 7.4+ (http://php.net)
 
@@ -66,12 +66,12 @@ class ExcelXmlFile
         if(!$dateCreation) {
             $dateCreation = new DateTime;
         }
-        $dateCreation = $dateCreation->format('Y-m-d\TH:i:s\Z');
+//        $dateCreation = $dateCreation->format('Y-m-d\TH:i:s\Z');
 
         if(!$dateUpdate) {
             $dateUpdate = new DateTime;
         }
-        $dateUpdate = $dateUpdate->format('Y-m-d\TH:i:s\Z');
+//        $dateUpdate = $dateUpdate->format('Y-m-d\TH:i:s\Z');
 
         $header = <<<XML
 <?xml version="1.0"?>
@@ -84,8 +84,8 @@ class ExcelXmlFile
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
   <Author>{$authorName}</Author>
   <LastAuthor>{$authorName}</LastAuthor>
-  <Created>{$dateCreation}</Created>
-  <LastSaved>{$dateUpdate}</LastSaved>
+  <Created>{$dateCreation->format('Y-m-d\TH:i:s\Z')}</Created>
+  <LastSaved>{$dateUpdate->format('Y-m-d\TH:i:s\Z')}</LastSaved>
   <Version>12.00</Version>
  </DocumentProperties>
  <ExcelWorkbook xmlns="urn:schemas-microsoft-com:office:excel">

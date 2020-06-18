@@ -6,7 +6,8 @@
   "homepage": "https://github.com/jgauthi/component_spreadsheet",
   "require": {
       "php": ">=7.4.0",
-      "ext-mbstring": "*"
+      "ext-mbstring": "*",
+      "ext-iconv": "*"
   },
   "config": {
     "platform": { "php" : "7.4" }

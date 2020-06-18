@@ -11,8 +11,9 @@ The supported format:
 
 * PHP 7.4+
 * PHP extension
+    * Iconv
     * Mbstring
-    * Pdo mysql _(optional)_
+    * _(optional)_ Pdo, pdo-mysqli or another database (sqlite, etc)
 
 ## Install
 Edit your [composer.json](https://getcomposer.org) (launch `composer update` after edit):

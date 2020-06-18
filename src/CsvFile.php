@@ -3,7 +3,7 @@
   * @name: CsvFile
   * @note: Framework for generating CSV files
   * @author: Jgauthi <https://github.com/jgauthi>, created the [23oct2018]
-  * @version: 1.5
+  * @version: 1.0
   * @Requirements:
         - PHP version >= 7.4+ (http://php.net)
 
@@ -41,11 +41,7 @@ class CsvFile
         }
 
         if ('php://output' === $this->file && !headers_sent()) {
-            $filename = preg_replace(
-                "#(\.[^$]{2,5})$#i",
-                '.csv',
-                basename($_SERVER['PHP_SELF'])
-            );
+            $filename = preg_replace("#(\.[^$]{2,5})$#i", '.csv', basename($_SERVER['PHP_SELF']));
 
             header('Content-Disposition: attachment; filename=' . $filename);
             header('Content-Type: text/csv');
@@ -65,13 +61,15 @@ class CsvFile
         $this->setOption();
     }
 
-    public function setOption(string $delimiter = self::DELIMITER, string $enclosure = self::ENCLOSURE, bool $utf8_bom = false): void
+    public function setOption(string $delimiter = self::DELIMITER, string $enclosure = self::ENCLOSURE, bool $utf8_bom = false): self
     {
         $this->options = [
             'delimiter' => $delimiter,
             'enclosure' => $enclosure,
             'utf8_bom' => $utf8_bom,
         ];
+
+        return $this;
     }
 
     public function writeTitle(array $titles = []): bool

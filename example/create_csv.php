@@ -11,8 +11,12 @@ if (isset($_GET['csv'])) {
     $file = 'php://output';
 
     $csv = new CsvFile($file);
-    $csv->writeTitle(array_keys($result[0]));
 
+    // [Optional] Set options before write* function
+    // Here, you see default values used by CsvFile if setOption is not used
+    $csv->setOption(CsvFile::DELIMITER, CsvFile::ENCLOSURE, false);
+
+    $csv->writeTitle(array_keys($result[0]));
     foreach ($result as $data) {
         $csv->write($data);
     }
