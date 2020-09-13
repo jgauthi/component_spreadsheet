@@ -1,5 +1,5 @@
 # Component Spreadsheet
-Class and method for read / generate spreadsheet files.
+Executables, class and method for read / generate spreadsheet files.
 
 The supported format:
 * **CSV**: parameters by default, delimiter: `;`, enclore: `"`.
@@ -30,5 +30,4 @@ Edit your [composer.json](https://getcomposer.org) (launch `composer update` aft
 
 
 ## Documentation
-You can look at [folder example](https://github.com/jgauthi/component_spreadsheet/tree/master/example).
-
+You can look at [folder example](example).

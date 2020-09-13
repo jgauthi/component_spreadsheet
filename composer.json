@@ -5,15 +5,25 @@
   "keywords": [ "csv", "xlsx.xml", "functions php", "php", "free" ],
   "homepage": "https://github.com/jgauthi/component_spreadsheet",
   "require": {
-      "php": ">=7.4.0",
-      "ext-mbstring": "*",
-      "ext-iconv": "*"
+    "php": ">=7.4.0",
+    "ext-mbstring": "*",
+    "ext-iconv": "*",
+    "ext-json": "*"
   },
   "config": {
     "platform": { "php" : "7.4" }
   },
   "autoload": {
     "psr-4": { "Jgauthi\\Component\\Spreadsheet\\": "src/" }
+  },
+  "bin": [
+    "bin/csv2json.php",
+    "bin/csv2yaml.php",
+    "bin/json2csv.php",
+    "bin/yaml2csv.php"
+  ],
+  "suggest": {
+    "symfony/yaml": "The Symfony Yaml component parses YAML strings to convert them to PHP arrays: It's require for import/export YAML files."
   },
   "license": "GPL-3.0",
   "authors": [
