@@ -188,7 +188,7 @@ class CsvUtils
             $sqlFields = ['`id` INT UNSIGNED NOT NULL AUTO_INCREMENT'];
 
             for($i = 0; $i < count($title); $i++) {
-                $title[$i] = self::slugify($title[$i]);
+                $title[$i] = str_replace('-', '_', self::slugify($title[$i]));
                 if ($title[$i] == 'id') {
                     continue; // Field already created
                 }
