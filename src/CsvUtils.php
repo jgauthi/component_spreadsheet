@@ -272,7 +272,7 @@ class CsvUtils
     private static function forceUtf8(string $text): string
     {
         if (!mb_detect_encoding($text, 'UTF-8', true)) {
-            $text = utf8_encode($text);
+            $text = mb_convert_encoding($text, 'UTF-8', mb_list_encodings());
         }
 
         return $text;
