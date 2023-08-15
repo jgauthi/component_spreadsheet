@@ -2,10 +2,10 @@
 /*******************************************************************************
   * @name: CsvUtils
   * @note: Utility functions to create / read / generate CSV
-  * @author: Jgauthi <https://github.com/jgauthi>, created the [23oct2018]
-  * @version: 1.0
+  * @author: Jgauthi, created at [23oct2018], url: <github.com/jgauthi/component_spreadsheet>
+  * @version: 1.1
   * @Requirements:
-        - PHP version >= 7.4+ (http://php.net)
+        - PHP version >= 8.2+ (http://php.net)
 
 *******************************************************************************/
 
@@ -24,8 +24,12 @@ class CsvUtils
         self::EXTRACT_VALUE_EMPTY_IS_NULL,
     ];
 
-    public static function parsecsv(string $filename, bool $first_line_title = true, string $delimiter = CsvFile::DELIMITER, array $extractValueMode = self::EXTRACT_VALUE_DEFAULT_MODE): array
-    {
+    public static function parsecsv(
+        string $filename,
+        bool $first_line_title = true,
+        string $delimiter = CsvFile::DELIMITER,
+        array $extractValueMode = self::EXTRACT_VALUE_DEFAULT_MODE,
+    ): array {
         $csv = [
             'filename' => basename($filename),
             'title' => [],
@@ -75,8 +79,13 @@ class CsvUtils
         return $csv;
     }
 
-    public static function csv_to_array(string $file, string $delimiter = CsvFile::DELIMITER, string $enclosure = CsvFile::ENCLOSURE, ?string $key_line = null, array $extractValueMode = self::EXTRACT_VALUE_DEFAULT_MODE): array
-    {
+    public static function csv_to_array(
+        string $file,
+        string $delimiter = CsvFile::DELIMITER,
+        string $enclosure = CsvFile::ENCLOSURE,
+        ?string $key_line = null,
+        array $extractValueMode = self::EXTRACT_VALUE_DEFAULT_MODE,
+    ): array {
         if (!is_readable($file)) {
             throw new InvalidArgumentException("The file {$file} doesn't exists or not readable.");
         }
@@ -148,8 +157,13 @@ class CsvUtils
      * @param string $enclosure
      * @return bool
      */
-    public static function generatecsv(string $file, array $data, bool $first_line_title = true, string $delimiter = CsvFile::DELIMITER, string $enclosure = CsvFile::ENCLOSURE): bool
-    {
+    public static function generatecsv(
+        string $file,
+        array $data,
+        bool $first_line_title = true,
+        string $delimiter = CsvFile::DELIMITER,
+        string $enclosure = CsvFile::ENCLOSURE,
+    ): bool {
         $csv = new CsvFile($file);
         $csv->setOption($delimiter, $enclosure);
 
@@ -176,8 +190,13 @@ class CsvUtils
     }
 
 
-    static public function content_to_database(\PDO $pdo, array $title, array $data, string $table, bool $create_table = false): bool
-    {
+    static public function content_to_database(
+        \PDO $pdo,
+        array $title,
+        array $data,
+        string $table,
+        bool $create_table = false,
+    ): bool {
         if(empty($title) || empty($data)) {
             throw new InvalidArgumentException("The arguments title or content are incorrect, require array no empty.");
         }

@@ -8,8 +8,7 @@ The supported format:
 
 
 ## Prerequisite
-
-* PHP 7.4+
+* PHP 8.2 (v1.1+) or 7.4+ (v1.0)
 * PHP extension
     * Iconv
     * Mbstring

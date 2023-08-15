@@ -2,10 +2,10 @@
 /*******************************************************************************
  * @name: Export XML Excel
  * @note: Framework pour générer des fichiers excels en XML
- * @author: Jgauthi <https://github.com/jgauthi>, created the [21dec2015]
- * @version: 1.0
+ * @author: Jgauthi, created at [21dec2015], url: <github.com/jgauthi/component_spreadsheet>
+ * @version: 1.1
  * @Requirements:
-    - PHP version >= 7.4+ (http://php.net)
+    - PHP version >= 8.2+ (http://php.net)
 
  *******************************************************************************/
 
@@ -18,23 +18,17 @@ use InvalidArgumentException;
 
 class ExcelXmlFile
 {
-    protected string $file;
     protected int $nb_col = 0;
-    private int $chmod = 0664;
-
-    /** @var false|resource */
-    protected $stream;
+    protected false|resource $stream;
 
     /**
      * File creation
      *
      * @param string $file File location: if it already exists, it will be deleted. Indicate 'php://output' to go through the stream server
-     * @param int|null $chmod
+     * @param int $chmod
      */
-    public function __construct(string $file, ?int $chmod = null)
+    public function __construct(protected string $file, private int $chmod = 0664)
     {
-        $this->file = $file;
-
         $this->stream = fopen($this->file, 'w');
         if (!$this->stream) {
             throw new InvalidArgumentException(sprintf('Impossible de créer le fichier "%s"', $file));
@@ -50,11 +44,8 @@ class ExcelXmlFile
             header('Pragma: public');
 
             $this->chmod = 0;
-
-        // If CHMOD is null, keep default value
-        // else define value. 0 value mean chmod is disabled
-        } elseif ($chmod !== null) {
-            $this->chmod = $chmod;
+            // If CHMOD is null, keep default value
+            // else define value. 0 value mean chmod is disabled
         }
     }
 
@@ -63,15 +54,12 @@ class ExcelXmlFile
      */
     public function header(string $authorName, ?DateTimeInterface $dateCreation = null, ?DateTimeInterface $dateUpdate = null): self
     {
-        if(!$dateCreation) {
+        if (!$dateCreation) {
             $dateCreation = new DateTime;
         }
-//        $dateCreation = $dateCreation->format('Y-m-d\TH:i:s\Z');
-
-        if(!$dateUpdate) {
+        if (!$dateUpdate) {
             $dateUpdate = new DateTime;
         }
-//        $dateUpdate = $dateUpdate->format('Y-m-d\TH:i:s\Z');
 
         $header = <<<XML
 <?xml version="1.0"?>
@@ -227,7 +215,7 @@ XML;
      */
     public function lineOpen(): self
     {
-        return $this->write("\t<Row>\n");
+        return $this->write("\t<Row>".PHP_EOL);
     }
 
     /**
@@ -235,7 +223,7 @@ XML;
      */
     public function lineClose(): self
     {
-        return $this->write("\t</Row>\n");
+        return $this->write("\t</Row>".PHP_EOL);
     }
 
     /**
@@ -250,7 +238,7 @@ XML;
             "\t\t".
             '<Cell><Data ss:Type="'. $type .'">'.
             $this->nl2br(htmlspecialchars($content, ENT_QUOTES, 'UTF-8')).
-            '</Data></Cell>'."\n"
+            '</Data></Cell>'.PHP_EOL
         );
     }
 
@@ -265,7 +253,7 @@ XML;
                 "\t\t".
                 '<Cell><Data ss:Type="String">'.
                 $this->nl2br(htmlspecialchars($libelle, ENT_QUOTES, 'UTF-8')).
-                '</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>'."\n"
+                '</Data><NamedCell ss:Name="_FilterDatabase"/></Cell>'.PHP_EOL
             );
         }
 

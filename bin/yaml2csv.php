@@ -16,16 +16,16 @@ $export = ((!empty($argv[2])) ? $argv[2] : dirname($import));
 
 try {
     if (!class_exists('Symfony\Component\Yaml\Yaml')) {
-        throw new Exception("The YAML Component is not installed.");
+        throw new ErrorException("The YAML Component is not installed.");
     } elseif (!is_readable($import)) {
-		throw new Exception("Le fichier {$import} n'est pas accessible ou n'existe pas.");
+		throw new ErrorException("Le fichier {$import} n'est pas accessible ou n'existe pas.");
     } elseif (!preg_match('#\.ya?ml$#i', $import) || filesize($import) <= 10) {
-        throw new Exception("Le fichier {$import} n'est pas un fichier yaml valide.");
+        throw new ErrorException("Le fichier {$import} n'est pas un fichier yaml valide.");
     }
 
     if (is_dir($export)) {
         if (!is_writable($export)) {
-            throw new Exception("Le dossier d'export {$export} n'a pas les droits en écriture.");
+            throw new ErrorException("Le dossier d'export {$export} n'a pas les droits en écriture.");
         }
 
         $export .= '/'.str_replace('.yaml', '.csv', basename($import));
@@ -35,9 +35,9 @@ try {
 
     $yamlContent = Yaml::parseFile($import);
     if (CsvUtils::generatecsv($export, $yamlContent)) {
-        echo "Fichier généré: {$export}\n";
+        echo "Fichier généré: {$export}".PHP_EOL;
     }
 
-} catch (Exception $exception) {
-	die($exception->getMessage()."\n");
+} catch (Throwable $exception) {
+	die($exception->getMessage().PHP_EOL);
 }

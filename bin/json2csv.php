@@ -16,7 +16,7 @@ $export = ((!empty($argv[2])) ? $argv[2] : dirname($import));
 try {
 	if (is_dir($export)) {
 		if (!is_writable($export)) {
-			throw new Exception("Le dossier d'export {$export} n'a pas les droits en écriture.");
+			throw new ErrorException("Le dossier d'export {$export} n'a pas les droits en écriture.");
 		}
 
 		$export .= '/'.str_replace('.json', '.csv', basename($import));
@@ -25,16 +25,16 @@ try {
 	}
 
 	if (!is_readable($import)) {
-		throw new Exception("Le fichier {$import} n'est pas accessible ou n'existe pas.");
+		throw new ErrorException("Le fichier {$import} n'est pas accessible ou n'existe pas.");
 	}
 
 	$jsonContent = json_decode( file_get_contents($import), true );
 	if (CsvUtils::generatecsv($export, $jsonContent)) {
-		echo "Fichier généré: {$export}\n";
+		echo "Fichier généré: {$export}".PHP_EOL;
 	}
 
-} catch (Exception $exception) {
-	die($exception->getMessage()."\n");
+} catch (Throwable $exception) {
+	die($exception->getMessage().PHP_EOL);
 }
 
 

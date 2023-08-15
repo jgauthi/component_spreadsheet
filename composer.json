@@ -5,7 +5,7 @@
   "keywords": [ "csv", "xlsx.xml", "functions php", "php", "free" ],
   "homepage": "https://github.com/jgauthi/component_spreadsheet",
   "require": {
-    "php": ">=7.4.0",
+    "php": ">=8.2",
     "ext-mbstring": "*",
     "ext-iconv": "*",
     "ext-json": "*"

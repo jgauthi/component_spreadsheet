@@ -2,10 +2,10 @@
 /*******************************************************************************
   * @name: CsvFile
   * @note: Framework for generating CSV files
-  * @author: Jgauthi <https://github.com/jgauthi>, created the [23oct2018]
-  * @version: 1.0
+  * @author: Jgauthi, created at [23oct2018], url: <github.com/jgauthi/component_spreadsheet>
+  * @version: 1.1
   * @Requirements:
-        - PHP version >= 7.4+ (http://php.net)
+        - PHP version >= 8.2+ (http://php.net)
 
 *******************************************************************************/
 
@@ -18,12 +18,8 @@ class CsvFile
     public const DELIMITER = ';';
     public const ENCLOSURE = '"';
 
-    protected string $file;
     protected array $options = [];
-    private int $chmod = 0664;
-
-    /** @var false|resource $stream */
-    protected $stream;
+    protected false|resource $stream;
 
     /**
      * File creation
@@ -31,10 +27,8 @@ class CsvFile
      * @param string $file File location: if it already exists, it will be deleted. Indicate 'php://output' to go through the stream server
      * @param int|null $chmod Set chmod file, you can disabled this feature with the value: 0
      */
-    public function __construct(string $file, ?int $chmod = null)
+    public function __construct(protected string $file, private int $chmod = 0664)
     {
-        $this->file = $file;
-
         $this->stream = fopen($this->file, 'w');
         if (!$this->stream) {
             throw new InvalidArgumentException(sprintf('Unable to create file "%s"', $file));
@@ -50,11 +44,8 @@ class CsvFile
             header('Pragma: public');
 
             $this->chmod = 0;
-
-        // If CHMOD is null, keep default value
-        // else define value. 0 value mean chmod is disabled
-        } elseif ($chmod !== null) {
-            $this->chmod = $chmod;
+            // If CHMOD is null, keep default value
+            // else define value. 0 value mean chmod is disabled
         }
 
         // CSV Option by default
