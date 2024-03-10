@@ -19,7 +19,7 @@ class CsvFile
     public const ENCLOSURE = '"';
 
     protected array $options = [];
-    protected false|resource $stream;
+    protected mixed $stream;
 
     /**
      * File creation

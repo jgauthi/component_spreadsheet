@@ -61,7 +61,7 @@ class CsvUtils
                     $var = self::csvContentExtractField($var, $extractValueMode);
                     $csv['content'][$row][] = $var;
 
-                    $row_content += mb_strlen($var);
+                    $row_content += mb_strlen($var ?? '');
                 }
 
                 // Vérifier que la ligne inscrite n'est pas vide
