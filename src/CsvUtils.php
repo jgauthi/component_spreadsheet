@@ -96,29 +96,22 @@ class CsvUtils
             return $content;
         }
 
-        // Détection du BOM UTF8
-        $utf8bom = chr(0xef) . chr(0xbb) . chr(0xbf);
-        $test = str_replace($utf8bom, '', fgets($handle, 10));
-        $nb = mb_strlen($test);
+        // Détection et suppression du BOM UTF8
+        $bom = "\xEF\xBB\xBF";
+        $firstLine = fgets($handle);
 
-        // Rewind pointer to start of file.
-        if ($nb < 9) {
-            fseek($handle, 3);
-        } else {
-            rewind($handle);
+        if (strpos($firstLine, $bom) === 0) {
+            $firstLine = substr($firstLine, 3);
+        }
+
+        // Analyser la première ligne pour les titres
+        $data = str_getcsv($firstLine, $delimiter, $enclosure, $escape);
+        foreach ($data as $index => $var) {
+            $titles[$index] = trim($var);
         }
 
         // Intégration du contenu
         while (false !== ($data = fgetcsv($handle, 3000, $delimiter, $enclosure))) {
-            // Récupérer les titres du CSV (1er ligne du CSV)
-            if (empty($titles)) {
-                foreach ($data as $index => $var) {
-                    $titles[$index] = self::forceUtf8(trim($var));
-                }
-
-                continue;
-            }
-
             // Récupérer le contenu
             $line = [];
             $row_content = 0;
