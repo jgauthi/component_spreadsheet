@@ -105,7 +105,7 @@ class CsvUtils
         }
 
         // Analyser la première ligne pour les titres
-        $data = str_getcsv($firstLine, $delimiter, $enclosure, $escape);
+        $data = str_getcsv($firstLine, $delimiter, $enclosure, $escape = "\\");
         foreach ($data as $index => $var) {
             $titles[$index] = trim($var);
         }
